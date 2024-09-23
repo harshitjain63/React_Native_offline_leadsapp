@@ -1,5 +1,5 @@
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
-import { getLeads } from '../database/Database';
+import {getLeads} from '../database/Database';
 
 export const generatePDF = async (): Promise<string> => {
   try {
@@ -24,14 +24,18 @@ export const generatePDF = async (): Promise<string> => {
           </tr>
         </thead>
         <tbody>
-          ${leads.map(lead => `
+          ${leads
+            .map(
+              lead => `
             <tr>
               <td>${lead.name}</td>
               <td>${lead.mobileNumber}</td>
               <td>${lead.description}</td>
               <td>${lead.status}</td>
             </tr>
-          `).join('')}
+          `,
+            )
+            .join('')}
         </tbody>
       </table>
     `;
@@ -41,7 +45,7 @@ export const generatePDF = async (): Promise<string> => {
       html: htmlContent,
       fileName: 'LeadList',
       directory: 'Documents',
-      base64:true,
+      base64: true,
     };
 
     const file = await RNHTMLtoPDF.convert(options);
